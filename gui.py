@@ -23,6 +23,7 @@ class PasswordManagerApp:
         self.search_entry = ttk.Entry(root, textvariable=self.search_var, width=50)
         self.search_entry.pack(pady=10)
         self.search_entry.bind("<Control-a>", select_all)  # Привязка Ctrl+A
+        self.search_entry.bind("<Control-Shift-C>", self.copy_password_if_one_result)  # Привязка Ctrl+Shift+C
 
         # Список результатов
         self.results_listbox = tk.Listbox(root, width=80, height=15)
@@ -71,6 +72,7 @@ class PasswordManagerApp:
         self.results_listbox.delete(0, tk.END)
         for site, user, passw in results:
             self.results_listbox.insert(tk.END, f"Website: {site}, Username: {user}, Password: {passw}")
+        self.current_results = results
 
     def on_select(self, event):
         try:
@@ -131,6 +133,16 @@ class PasswordManagerApp:
             messagebox.showinfo("Success", "Password copied to clipboard!")
         else:
             messagebox.showwarning("Selection Error", "Please select a record to copy.")
+
+    def copy_password_if_one_result(self, event):
+        if len(self.current_results) == 1:
+            site, user, passw = self.current_results[0]
+            self.root.clipboard_clear()
+            self.root.clipboard_append(passw)
+            messagebox.showinfo("Success", f"Password for {site} copied to clipboard!")
+        else:
+            messagebox.showwarning("Search Error", "Please narrow down your search to one result.")
+        return "break"
 
     def clear_fields(self):
         self.website_var.set("")
