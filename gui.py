@@ -24,6 +24,7 @@ class PasswordManagerApp:
         self.search_entry.pack(pady=10)
         self.search_entry.bind("<Control-a>", select_all)  # Привязка Ctrl+A
         self.search_entry.bind("<Control-Shift-C>", self.copy_password_if_one_result)  # Привязка Ctrl+Shift+C
+        self.search_entry.focus_set()
 
         # Список результатов
         self.results_listbox = tk.Listbox(root, width=80, height=15)
