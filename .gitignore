@@ -1,4 +1,8 @@
 /.venv/
 /.idea/
+/build/
+/dist/
+
 /passwords.db
 /key.key
+/main.spec
