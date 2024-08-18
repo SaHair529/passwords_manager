@@ -1,16 +1,11 @@
-from db_manager import DBManager
+from gui import PasswordManagerApp
+import tkinter as tk
 
 
 def main():
-    db = DBManager()
-
-    db.add_password('example.com', 'username', 'password')
-
-    results = db.search_password('example')
-    for site, user, passw in results:
-        print(f"Website: {site}, Username: {user}, Password: {passw}")
-
-    db.close()
+    root = tk.Tk()
+    app = PasswordManagerApp(root)
+    app.run()
 
 
 if __name__ == '__main__':
