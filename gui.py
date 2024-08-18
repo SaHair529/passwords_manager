@@ -4,6 +4,12 @@ from tkinter import ttk, messagebox
 from db_manager import DBManager
 
 
+def select_all(event):
+    event.widget.select_range(0, tk.END)
+    event.widget.icursor(tk.END)
+    return "break"
+
+
 class PasswordManagerApp:
     def __init__(self, root):
         self.db = DBManager()
@@ -16,6 +22,7 @@ class PasswordManagerApp:
         self.search_var.trace("w", self.update_search_results)
         self.search_entry = ttk.Entry(root, textvariable=self.search_var, width=50)
         self.search_entry.pack(pady=10)
+        self.search_entry.bind("<Control-a>", select_all)  # Привязка Ctrl+A
 
         # Список результатов
         self.results_listbox = tk.Listbox(root, width=80, height=15)
@@ -30,14 +37,17 @@ class PasswordManagerApp:
         ttk.Label(root, text="Website:").pack(pady=2)
         self.website_entry = ttk.Entry(root, textvariable=self.website_var, width=50)
         self.website_entry.pack(pady=2)
+        self.website_entry.bind("<Control-a>", select_all)  # Привязка Ctrl+A
 
         ttk.Label(root, text="Username:").pack(pady=2)
         self.username_entry = ttk.Entry(root, textvariable=self.username_var, width=50)
         self.username_entry.pack(pady=2)
+        self.username_entry.bind("<Control-a>", select_all)  # Привязка Ctrl+A
 
         ttk.Label(root, text="Password:").pack(pady=2)
         self.password_entry = ttk.Entry(root, textvariable=self.password_var, width=50)
         self.password_entry.pack(pady=2)
+        self.password_entry.bind("<Control-a>", select_all)  # Привязка Ctrl+A
 
         # Кнопки для добавления, редактирования и удаления паролей
         self.add_button = ttk.Button(root, text="Add Password", command=self.add_password)
