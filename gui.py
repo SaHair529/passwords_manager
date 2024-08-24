@@ -141,6 +141,7 @@ class PasswordManagerApp:
             self.root.clipboard_clear()
             self.root.clipboard_append(passw)
             messagebox.showinfo("Success", f"Password for {site} copied to clipboard!")
+            self.root.quit()
         else:
             messagebox.showwarning("Search Error", "Please narrow down your search to one result.")
         return "break"
